@@ -45,12 +45,13 @@ module "loadbalancing" {
   listener_protocol       = "HTTP"
 }
 
+# Deploy the server nodes (ec2 instances)
 module "compute" {
   source              = "./compute"
   public_sg           = module.networking.public_sg
   public_subnets      = module.networking.public_subnets
-  instance_count      = 1
-  instance_type       = "t3.micro"
+  instance_count      = 2
+  instance_type       = "t3.small"
   vol_size            = "20"
   public_key_path     = var.public_key_path
   key_name            = var.key_name
@@ -58,8 +59,8 @@ module "compute" {
   dbuser              = var.dbuser
   dbpassword          = var.dbpassword
   db_endpoint         = module.database.db_endpoint
-  user_data_path      = "${path.root}/userdata.tpl"
+  user_data_path      = "${path.root}/templates/userdata.tpl"
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
-  tg_port             = 8000
+  tg_port             = var.tg_port # 8000
   private_key_path    = var.private_key_path
 }
