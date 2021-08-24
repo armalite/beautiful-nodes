@@ -23,6 +23,10 @@ variable "public_key_path" {
 variable "private_key_path" {
   type = string
 }
-variable "key_name" { 
+variable "key_name" {
   type = string
+}
+
+variable "tg_port" {
+  type = number
 }
