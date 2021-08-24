@@ -15,6 +15,11 @@
 # SSH Keys
 *.pem
 
+# Node config files and any other k8s / k3s binaries
+.nodeconfigs/
+kubectl
+kubectl.sha256
+
 # Backup files
 *.bak
 
