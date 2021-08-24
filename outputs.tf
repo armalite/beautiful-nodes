@@ -9,11 +9,11 @@ output "load_balancer_endpoint" {
 
 
 output "kubeconfig" {
-  value     = [for i in module.compute.instance : "export KUBECONFIG=../k3s-${i.tags.Name}.yaml"]
+  value     = [for i in module.compute.instance : "export KUBECONFIG=.nodeconfigs/k3s-${i.tags.Name}.yaml"]
   sensitive = true
 }
 
 output "k3s" {
-  value     = [for i in module.compute.instance : "../k3s-${i.tags.Name}.yaml"][0]
+  value     = [for i in module.compute.instance : ".nodeconfigs/k3s-${i.tags.Name}.yaml"][0]
   sensitive = true
 }

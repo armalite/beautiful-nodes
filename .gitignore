@@ -4,6 +4,13 @@
 *.tfstate.lock.info
 *.tfvars
 
+# Node configs
+.nodeconfigs/
+
+# kubectl files (if used locally for installation)
+kubectl
+kubectl.sha256
+
 # logs
 *.log
 
