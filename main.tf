@@ -1,12 +1,11 @@
 # --- root/main.tf --- 
 
 #Deploy Networking Resources
-
 module "networking" {
   source           = "./networking"
   vpc_cidr         = local.vpc_cidr
-  private_sn_count = 3
-  public_sn_count  = 2
+  private_sn_count = var.private_subnet_count
+  public_sn_count  = var.public_subnet_count
   private_cidrs    = [for i in range(1, 255, 2) : cidrsubnet(local.vpc_cidr, 8, i)]
   public_cidrs     = [for i in range(2, 255, 2) : cidrsubnet(local.vpc_cidr, 8, i)]
   max_subnets      = 20
@@ -15,7 +14,7 @@ module "networking" {
   db_subnet_group  = "true"
 }
 
-# Deploy RDS postgres db
+# Deploy RDS postgres db. This wil be an external db setup to be used by all server nodes
 module "database" {
   source                 = "./database"
   db_engine_version      = "5.7.22"
@@ -50,7 +49,7 @@ module "compute" {
   source              = "./compute"
   public_sg           = module.networking.public_sg
   public_subnets      = module.networking.public_subnets
-  instance_count      = 2
+  instance_count      = var.server_nodes_count
   instance_type       = "t3.small"
   vol_size            = "20"
   public_key_path     = var.public_key_path

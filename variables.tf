@@ -30,3 +30,15 @@ variable "key_name" {
 variable "tg_port" {
   type = number
 }
+
+variable "server_nodes_count" {
+  type = number
+}
+
+variable "private_subnet_count" {
+  type = number
+}
+
+variable "public_subnet_count" {
+  type = number
+}
