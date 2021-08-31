@@ -7,7 +7,6 @@ output "load_balancer_endpoint" {
 #   sensitive = true
 # }
 
-
 output "kubeconfig" {
   value     = [for i in module.compute.instance : "export KUBECONFIG=.nodeconfigs/k3s-${i.tags.Name}.yaml"]
   sensitive = true

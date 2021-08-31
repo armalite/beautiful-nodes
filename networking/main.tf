@@ -90,21 +90,21 @@ resource "aws_default_route_table" "beautiful_private_rt" {
   }
 }
 
+# use count + splat operator to associate all the public subnets with the public route table
 resource "aws_route_table_association" "beautiful_public_assoc" {
   count          = var.public_sn_count
   subnet_id      = aws_subnet.beautiful_public_subnet.*.id[count.index]
   route_table_id = aws_route_table.beautiful_public_rt.id
 }
 
+# check the root locals.tf for security group ingress/egress setups I've defined (and don't judge me ;-) )
+# open ingress can be set to your own public IP. Set this with 'access_ip =' in a tfvars file
 resource "aws_security_group" "beautiful_sg" {
   for_each    = var.security_groups
   name        = each.value.name
   description = each.value.description
   vpc_id      = aws_vpc.beautiful_vpc.id
 
-
-
-  #public Security Group
   dynamic "ingress" {
     for_each = each.value.ingress
     content {
