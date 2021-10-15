@@ -77,7 +77,7 @@ resource "aws_instance" "beautiful_node" {
   # Remove this directory upon destroy as we dont need it. Adeeb-TODO: test for remote exec too?
   provisioner "local-exec" {
     when    = destroy
-    command = "rm -f ${path.cwd}/../k3s-beautiful_node-*"
+    command = "rm -f ${path.cwd}/.nodeconfigs/k3s-beautiful_node-*"
   }
 }
 
