@@ -58,7 +58,7 @@ module "compute" {
   dbuser              = var.dbuser
   dbpassword          = var.dbpassword
   db_endpoint         = module.database.db_endpoint
-  user_data_path      = "${path.root}/templates/userdata.tpl"
+  user_data_path      = "${path.root}/templates/setup_k3s_server.tpl"
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
   tg_port             = var.tg_port # 8000
   private_key_path    = var.private_key_path
