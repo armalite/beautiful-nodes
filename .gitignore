@@ -4,6 +4,9 @@
 *.tfstate.lock.info
 terraform.tfvars
 
+# Keys
+.ssh
+
 # Node configs
 .nodeconfigs/
 
