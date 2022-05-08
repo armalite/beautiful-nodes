@@ -8,8 +8,8 @@ This is a Terraform deployment for a high availability k3s architecture on AWS.
  - Note the `access_ip` variable should only include your public IP. If this is left at 0.0.0.0/0, it will open to world
 
 # Prerequisites
-Terraform
-Kubectl (if you wish to control the server nodes from your local machine)
+ - Terraform
+ - Kubectl (if you wish to control the server nodes from your local machine)
 
 # Usage - Infrastructure Deployment
 
