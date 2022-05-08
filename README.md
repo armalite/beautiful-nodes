@@ -1,26 +1,26 @@
 # beautiful-nodes
-README is a work in progress...
+This is a Terraform deployment for a high availability k3s architecture on AWS.
 
-This is my Terraform deployment for a high availability k3s architecture on AWS.
-
-The k3s server nodes use a shared external RDS Postgres db, and deployed on multiple AZs. 
-
-Multiple public and private subnets are provisioned based on the _subnet_count variable inputs supplied in tfvars. 
-
-Load balancer routes traffic to healthy server nodes.
-
-When the k3s nodes are started, the kubeconfig and certificates are copied to a local directory on your machine using a local-exec provisioner. This will allow you to perform kubectl commands from your local machine. 
-
-Currently this deploys X number of k3s server nodes on ec2 t3.small instances. Number of nodes can be defined in terraform.tfvars:
-<code> server_nodes_count = 2 </code>
-
-Have a look inside the rename-this-to-terraform.tfvars file to see all required inputs. Rename this file to terraform.tfvars.
-Note the access_ip variable should only include your public IP. If this is left at 0.0.0.0/0, it will open to world
-
-# Architecture
+ - he k3s server nodes use a shared external RDS Postgres db, and deployed on multiple AZs. 
+ - Multiple public and private subnets are provisioned based on your settings in `beautiful-nodes.tfvars`. 
+ - Load balancer routes traffic to healthy server nodes.
+ - When the k3s nodes are started, the kubeconfig and certificates are copied to a local directory on your machine using a local-exec provisioner. This will allow you to perform kubectl commands from your local machine. 
+ - Note the `access_ip` variable should only include your public IP. If this is left at 0.0.0.0/0, it will open to world
 
 # Prerequisites
 Terraform
 Kubectl (if you wish to control the server nodes from your local machine)
 
 # Usage
+
+ 1. Fork and clone the repository
+ 2. Replace the contents of backends.tf with: 
+    ```
+    terraform {
+        backend "local" { }
+    }
+    ```
+ 3. Open `beautiful-nodes.tfvars` and fill out the details as per the instructions in that file
+   - Keep in mind the cost of resources when selectin the node sizes and the number of nodes / instance count
+ 4. Run `make plan` to perform a terraform plan
+ 5. Run `make apply` to deploy the infrastructure
